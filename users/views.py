@@ -1,10 +1,11 @@
 import json
-import re
+
 
 from django.http  import JsonResponse
 from django.views import View
 
 from users.models import User
+from users.utils import validate_email, validate_password
 
 class SignUpView(View):
     def post(self, request):
@@ -16,14 +17,8 @@ class SignUpView(View):
             password = data['password']
             phone    = data['phone']
             
-            REGEX_EMAIL    = '^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+$'
-            REGEX_PASSWORD = '^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$'
-            
-            if not re.match(REGEX_EMAIL, email):
-                return JsonResponse({'message':'Email is invalid.'}, status=400)
-            
-            if not re.match(REGEX_PASSWORD, password):
-                return JsonResponse({'message':'Password is invalid.'}, status=400)
+            validate_email(email)
+            validate_password(password)            
     
             User.objects.create(
                 name     = name,
