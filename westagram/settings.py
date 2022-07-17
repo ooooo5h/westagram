@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-from my_settings import SECRET_KEY, DATABASES
+from my_settings import SECRET_KEY, DATABASES, ALGORITHM   # 여기서 알고리즘도 가져와야한다.
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
